@@ -1,0 +1,106 @@
+{% extends 'questionList/main.html' %}
+{% load custom_tags %}
+
+{% block content %}
+
+<div class="row mt-5">
+    {% if easy_count|add:medium_count|add:hard_count  > 0 %}
+    <div class="col-md m-2">
+        <canvas id="allCountChart" class ="border rounded p-3 shadow" aria-label="chart" role="img" height="210">
+            {{ levelData|json_script:"chartData" }}
+        </canvas>
+    </div>
+    {% endif %}
+    <div class="col-md m-2">
+        <div class="card shadow">
+            <h5 class="card-header">Complexity Counts</h5>
+            <div class="card-body my-0 py-1">
+                <div class="row my-2">
+                    <div class="col border rounded border-success text-success py-1">
+                        Easy Question : {{ easy_count }}
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col border rounded border-warning  text-warning py-1">
+                        Medium Question : {{ medium_count }}
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col border rounded border-danger text-danger py-1">
+                        Hard Question : {{ hard_count }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% if  easy_count|add:medium_count|add:hard_count > 0 %}
+<table class="table table-bordered table-hover mt-5 shadow ">
+    <thead class="thead-dark ">
+      <tr>
+        <th scope="col">Leetcode Link</th>
+        <th scope="col">Level</th>
+        <th scope="col">Tutorial</th>
+        <th scope="col">Mark Complete</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for question in questions %}
+            {% if question.level == 'E' %}
+                <tr class="table-success">
+                    <td ><a href="{{question.question}}" target="blank">{{ extradata|get_value:question.id }}</a></td>
+                    <td >Easy</td>
+                    {% if question.tutorial is None %}
+                        <td class="text-center"><a class="btn btn-outline-secondary btn-sm" href="#" >No tutorial</a></td>
+                    {% else %}
+                        <td class="text-center"><a class="btn btn-outline-secondary btn-sm" href="{{question.tutorial}}" target="blank">Watch tutorial</a></td>
+                    {% endif %}
+
+                    {% if extradata|get_status:question.id == 'completed' %}
+                        <td class="text-center"><a class="btn btn-outline-danger btn-sm" href="{% url 'changeStatus' question.id que_type que_status return_id addOrRemove|is_removing:question.id %}">Mark as Incomplete</a></td>
+                    {% else %}
+                        <td class="text-center"><a class="btn btn-outline-success btn-sm" href="{% url 'changeStatus' question.id que_type que_status return_id addOrRemove|is_adding:question.id %}">Mark as Completed</a></td>
+                    {% endif %}
+                </tr>
+            {% elif question.level == 'M' %}
+                <tr class="table-warning">
+                    <td ><a href="{{question.question}}" target="blank">{{ extradata|get_value:question.id }}</a></td>
+                    <td >Medium</td>
+                    {% if question.tutorial is None %}
+                        <td class="text-center"><a class="btn btn-outline-secondary btn-sm" href="#" >No tutorial</a></td>
+                    {% else %}
+                        <td class="text-center"><a class="btn btn-outline-secondary btn-sm" href="{{question.tutorial}}" target="blank">Watch tutorial</a></td>
+                    {% endif %}
+
+                    {% if extradata|get_status:question.id == 'completed' %}
+                        <td class="text-center"><a class="btn btn-outline-danger btn-sm" href="{% url 'changeStatus' question.id que_type que_status return_id addOrRemove|is_removing:question.id %}">Mark as Incomplete</a></td>
+                    {% else %}
+                        <td class="text-center"><a class="btn btn-outline-success btn-sm" href="{% url 'changeStatus' question.id que_type que_status return_id addOrRemove|is_adding:question.id %}">Mark as Completed</a></td>
+                    {% endif %}
+                </tr>
+            {% elif question.level == 'H' %}
+                <tr class="table-danger">
+                    <td ><a href="{{question.question}}" target="blank">{{ extradata|get_value:question.id }}</a></td>
+                    <td >Hard</td>
+                    {% if question.tutorial is None %}
+                        <td class="text-center"><a class="btn btn-outline-secondary btn-sm" href="#" >No tutorial</a></td>
+                    {% else %}
+                        <td class="text-center"><a class="btn btn-outline-secondary btn-sm" href="{{question.tutorial}}" target="blank">Watch tutorial</a></td>
+                    {% endif %}
+
+                    {% if extradata|get_status:question.id == 'completed' %}
+                        <td class="text-center"><a class="btn btn-outline-danger btn-sm" href="{% url 'changeStatus' question.id que_type que_status return_id addOrRemove|is_removing:question.id %}">Mark as Incomplete</a></td>
+                    {% else %}
+                        <td class="text-center"><a class="btn btn-outline-success btn-sm" href="{% url 'changeStatus' question.id que_type que_status return_id addOrRemove|is_adding:question.id %}">Mark as Completed</a></td>
+                    {% endif %}
+                </tr>
+            {% endif%}
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+{% endblock %}

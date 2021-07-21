@@ -1,0 +1,28 @@
+
+
+{% if template == 'index' %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'questions' %}">Home</a></li>
+            {% for key, value in questions_type.items %}
+                {% if value == que_type %}
+                    <li class="breadcrumb-item active" aria-current="page">{{key}}</li>
+                {% endif %}
+            {% endfor %}
+        </ol>
+    </nav>
+{% elif template == 'completed' %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'questions' %}">Home</a></li>
+            {% for key, value in questions_type.items %}
+                {% if value == que_type %}
+                    <li class="breadcrumb-item"><a href="{% url 'renderquestions' value %}">{{key}}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{que_status}}</li>
+                {% endif %}
+            {% endfor %}
+        </ol>
+    </nav>
+{% endif %}
+        
+   

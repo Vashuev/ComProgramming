@@ -1,0 +1,47 @@
+{% extends 'questionList/main.html' %}
+
+{% block content %}
+
+<!-- Redering different type of question passed from view in qeustions_type variable -->
+<div class="row mt-5">
+    <div class="col-sm m-1 text-center border rounded border-primary shadow mx-4">
+        <h4 class="mt-1 text-primary">Total Questions : {{ total_question}}</h4>
+    </div>
+    <div class="col-sm m-1 text-center border rounded border-success shadow mx-4">
+        <h4 class="mt-1 text-success">Completed : {{ complete_count}}</h4>
+    </div>
+    <div class="col-sm m-1 text-center border rounded border-danger shadow mx-4">
+        <h4 class="mt-1 text-danger">Incomplete : {{ incomplete_count}}</h4>
+    </div>
+</div>
+
+
+<div class="row mt-5 p-1">
+    <div class="col-sm border rounded m-3 shadow">
+        <canvas id="allCountChart" class ="text-center p-2" aria-label="chart" role="img" width="250" height="250">
+            {{ chartData|json_script:"chartData" }}
+        </canvas>
+    </div>
+    <div class="col-sm border rounded m-3 shadow">
+        <canvas id="allQuestionChart" class ="text-center p-2" aria-label="chart" role="img" width="600" height="300">
+            {{ questionData|json_script:"questionData" }}
+        </canvas>
+    </div>
+</div>
+
+{% for type_key, type_value in questions_type.items %}
+    <div class="row m-2 border p-1 rounded text-secondary shadow-sm questiontype">
+        <div class="col pt-1">
+            {{ type_key }}
+        </div>
+        <div class="col">
+        </div>
+        <div class="col text-center">
+            <a class="btn btn-outline-warning btn-sm" href="{% url 'renderquestions' type_value %}">
+                Open questions
+            </a>
+        </div>
+    </div>
+{% endfor %}
+ 
+{% endblock %}
