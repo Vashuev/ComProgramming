@@ -1,1 +1,1 @@
-web:gunicorn ComProgramming.wsgi --log-file -
+web: gunicorn ComProgramming.wsgi --log-file -
