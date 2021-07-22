@@ -30,7 +30,7 @@ def registerPage(request):
     context = {
         'form': form
     }
-    return render(request, 'questionlist/register.html', context)
+    return render(request, 'questionList/register.html', context)
 
 def loginPage(request):
     if request.user.is_authenticated:
@@ -46,7 +46,7 @@ def loginPage(request):
             messages.warning(request, 'Username or password is Incorrect') 
 
     context = {}
-    return render(request, 'questionlist/login.html', context)
+    return render(request, 'questionList/login.html', context)
 
 def logoutPage(request):
     logout(request)
@@ -122,7 +122,7 @@ def questions_list(request):
         'que_type' : None,
     }
         
-    return render(request, 'questionlist/base.html', context =context)
+    return render(request, 'questionList/base.html', context =context)
 
 
 @login_required(login_url='login')
@@ -174,7 +174,7 @@ def render_questions_of_a_type(request, que_type):
     }
 
 
-    return render(request, 'questionlist/index.html', context = context)
+    return render(request, 'questionList/index.html', context = context)
 
 
 @login_required(login_url='login')
@@ -235,7 +235,7 @@ def completed_question(request, que_type, que_status):
         'template' : 'completed',
     }
 
-    return render(request, 'questionlist/completed.html', context = context)
+    return render(request, 'questionList/completed.html', context = context)
 
 @login_required(login_url='login')
 def changeQuestionStatus(request, que_id, que_type, que_status, return_id, addOrRemove):
