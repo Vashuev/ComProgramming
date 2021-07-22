@@ -9,15 +9,15 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
  </head>
 <body class="d-flex flex-column min-vh-100">
-    {% include "questionlist/navbar.html" %} 
-    {% include "questionlist/about.html" %}
+    {% include "questionList/navbar.html" %} 
+    {% include "questionList/about.html" %}
     <div class="container mb-5 wrapper flex-grow-1">
-        {% include "questionlist/breadcrumb.html" %}
+        {% include "questionList/breadcrumb.html" %}
         {% block content %}
 
         {% endblock %}
     </div>
-    {% include "questionlist/footer.html" %}
+    {% include "questionList/footer.html" %}
     
 	<script src="{% static '/js/chart.js' %}"></script>
     <script src="{% static '/js/chartConf.js' %}"></script>
